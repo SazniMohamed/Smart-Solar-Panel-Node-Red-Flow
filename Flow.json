@@ -1,0 +1,1174 @@
+[
+    {
+        "id": "e8a3a4c4.38b508",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "8ef55a9a.29da68",
+        "type": "inject",
+        "z": "e8a3a4c4.38b508",
+        "name": "Inject Each Time",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 100,
+        "wires": [
+            [
+                "19c233c0.92b67c"
+            ]
+        ]
+    },
+    {
+        "id": "19c233c0.92b67c",
+        "type": "change",
+        "z": "e8a3a4c4.38b508",
+        "name": "Set API Keys and Variable",
+        "rules": [
+            {
+                "t": "set",
+                "p": "OWMAppId",
+                "pt": "flow",
+                "to": "ca8c2c7970a09dc296d9b3cfc4d06940",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "ClientID",
+                "pt": "flow",
+                "to": "524901",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "units",
+                "pt": "flow",
+                "to": "metric",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "dateParam",
+                "pt": "flow",
+                "to": "{\"hour\":\"2-digit\",\"minute\":\"2-digit\",\"hour12\":true}",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "owmTemperatureUnit",
+                "pt": "flow",
+                "to": "°C",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "Count",
+                "pt": "flow",
+                "to": "5",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "AstronomyAPIKey",
+                "pt": "flow",
+                "to": "b47fff2e3eed4095a10db3ad91bf2d5b",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "AngleUnit",
+                "pt": "flow",
+                "to": "°",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "DistanceUnit",
+                "pt": "flow",
+                "to": " Km",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "logged",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "53ac9189.e3b9d",
+        "type": "comment",
+        "z": "e8a3a4c4.38b508",
+        "name": "Set Flow Variables",
+        "info": "",
+        "x": 150,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "9f5025f5.7a38c8",
+        "type": "http response",
+        "z": "e8a3a4c4.38b508",
+        "name": "Login Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 620,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "50e6cda.36f5d34",
+        "type": "http in",
+        "z": "e8a3a4c4.38b508",
+        "name": "Login",
+        "url": "/login",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "379bcf5c.53fae"
+            ]
+        ]
+    },
+    {
+        "id": "379bcf5c.53fae",
+        "type": "template",
+        "z": "e8a3a4c4.38b508",
+        "name": "Log-in and Sign-up",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n\n<head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width\">\n    <link href=\"//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\" rel=\"stylesheet\" id=\"bootstrap-css\">\n    <script src=\"//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js\"></script>\n    <script src=\"//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js\"></script>\n    <link href=\"https://fonts.googleapis.com/css?family=Kaushan+Script\" rel=\"stylesheet\">\n    <link href=\"https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css\" rel=\"stylesheet\"\n        integrity=\"sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN\" crossorigin=\"anonymous\">\n\n    <title>Login Dashboard</title>\n    <style>\n        body {\n            padding - top: 4.2rem;\n            padding-bottom: 4.2rem;\n            background: rgba(0, 0, 0, 0.76);\n        }\n\n        a {\n            text - decoration: none !important;\n        }\n\n        h1,\n        h2,\n        h3 {\n            font - family: 'Kaushan Script', cursive;\n        }\n\n        .myform {\n            position: relative;\n            display: -ms-flexbox;\n            display: flex;\n            padding: 1rem;\n            -ms-flex-direction: column;\n            flex-direction: column;\n            width: 100%;\n            pointer-events: auto;\n            background-color: #fff;\n            background-clip: padding-box;\n            border: 1px solid rgba(0, 0, 0, .2);\n            border-radius: 1.1rem;\n            outline: 0;\n            max-width: 500px;\n        }\n\n        .tx-tfm {\n            text - transform: uppercase;\n        }\n\n        .mybtn {\n            border - radius: 50px;\n        }\n\n        .login-or {\n            position: relative;\n            color: #aaa;\n            margin-top: 10px;\n            margin-bottom: 10px;\n            padding-top: 10px;\n            padding-bottom: 10px;\n        }\n\n        .span-or {\n            display: block;\n            position: absolute;\n            left: 50%;\n            top: -2px;\n            margin-left: -25px;\n            background-color: #fff;\n            width: 50px;\n            text-align: center;\n        }\n\n        .hr-or {\n            height: 1px;\n            margin-top: 0px !important;\n            margin-bottom: 0px !important;\n        }\n\n        .google {\n            color: #666;\n            width: 100%;\n            height: 40px;\n            text-align: center;\n            outline: none;\n            border: 1px solid lightgrey;\n        }\n\n        form .error {\n            color: #ff0000;\n        }\n\n        #second {\n            display: none;\n        }\n    </style>\n</head>\n\n<body>\n    <div class=\"container\">\n        <div class=\"row\">\n            <div class=\"col-md-5 mx-auto\">\n                <div id=\"first\">\n                    <div class=\"myform form \">\n                        <div class=\"logo mb-3\">\n                            <div class=\"col-md-12 text-center\">\n                                <h1>Login</h1>\n                            </div>\n                        </div>\n                        <form name=\"login\" id=\"login\">\n                            <div class=\"form-group\">\n                                <label for=\"exampleInputEmail1\">Email address</label>\n                                <input type=\"email\" name=\"login_email\" class=\"form-control\" id=\"login_email\"\n                                    aria-describedby=\"emailHelp\" placeholder=\"Enter email\" required>\n                            </div>\n                            <div class=\"form-group\">\n                                <label for=\"exampleInputEmail1\">Password</label>\n                                <input type=\"password\" name=\"login_password\" id=\"login_password\" class=\"form-control\"\n                                    aria-describedby=\"emailHelp\" placeholder=\"Enter Password\" required>\n                            </div>\n                            <div class=\"form-group\">\n                                <p class=\"text-center\">By signing up you accept our <a href=\"#\">Terms Of Use</a></p>\n                            </div>\n                            <div class=\"col-md-12 text-center \">\n                                <button type=\"submit\" class=\" btn btn-block mybtn btn-primary tx-tfm\">Login</button>\n                            </div>\n                            <div class=\"col-md-12 \">\n                                <div class=\"login-or\">\n                                    <hr class=\"hr-or\">\n                                    <span class=\"span-or\">or</span>\n                                </div>\n                            </div>\n                            <div class=\"form-group\">\n                                <p class=\"text-center\">Have you forgot password? <a href=\"#\" id=\"reset\">Reset Password\n                                        here</a></p>\n                            </div>\n                            <div class=\"form-group\">\n                                <p class=\"text-center\">Don't have account? <a href=\"#\" id=\"signup\">Sign up here</a></p>\n                            </div>\n                        </form>\n\n                    </div>\n                </div>\n                <div id=\"second\">\n                    <div class=\"myform form \">\n                        <div class=\"logo mb-3\">\n                            <div class=\"col-md-12 text-center\">\n                                <h1>Signup</h1>\n                            </div>\n                        </div>\n                        <form name=\"registration\" id=\"registration\">\n                            <div class=\"form-group\">\n                                <label for=\"exampleInputEmail1\">First Name</label>\n                                <input type=\"text\" name=\"firstname\" class=\"form-control\" id=\"signup-firstname\"\n                                    aria-describedby=\"emailHelp\" placeholder=\"Enter Firstname\" required>\n                            </div>\n                            <div class=\"form-group\">\n                                <label for=\"exampleInputEmail1\">Last Name</label>\n                                <input type=\"text\" name=\"lastname\" class=\"form-control\" id=\"signup-lastname\"\n                                    aria-describedby=\"emailHelp\" placeholder=\"Enter Lastname\" required>\n                            </div>\n                            <div class=\"form-group\">\n                                <label for=\"exampleInputEmail1\">Email address</label>\n                                <input type=\"email\" name=\"signup_email\" class=\"form-control\" id=\"signup_email\"\n                                    aria-describedby=\"emailHelp\" placeholder=\"Enter email\" required>\n                            </div>\n                            <div class=\"form-group\">\n                                <label for=\"exampleInputEmail1\">Password</label>\n                                <input type=\"password\" name=\"signup_password\" id=\"signup_password\" class=\"form-control\"\n                                    aria-describedby=\"emailHelp\" placeholder=\"Enter Password\" required>\n                            </div>\n                            <div class=\"col-md-12 text-center mb-3\">\n                                <button type=\"submit\" class=\" btn btn-block mybtn btn-primary tx-tfm\">Get Started For\n                                    Free</button>\n                            </div>\n                            <div class=\"col-md-12 \">\n                                <div class=\"form-group\">\n                                    <p class=\"text-center\"><a href=\"#\" id=\"signin\">Already have an account?</a></p>\n                                </div>\n                            </div>\n                    </div>\n                    </form>\n                </div>\n            </div>\n        </div>\n    </div>\n    </div>\n    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) and Bootstrap -->\n    <script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js\"></script>\n    <script src=\"//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>\n    <!-- Include Firebase Library and Config-->\n    <script src=\"//www.gstatic.com/firebasejs/4.5.0/firebase.js\"></script>\n    <script>\n        // Your web app's Firebase configuration\n        var firebaseConfig = {\n            apiKey: \"AIzaSyAumggDvGuhfw0gN41OF1znmUe55zVVi5s\",\n            authDomain: \"smart-solar-panel-e0149.firebaseapp.com\",\n            databaseURL: \"https://smart-solar-panel-e0149-default-rtdb.firebaseio.com\",\n            projectId: \"smart-solar-panel-e0149\",\n            storageBucket: \"smart-solar-panel-e0149.appspot.com\",\n            messagingSenderId: \"394213596186\",\n            appId: \"1:394213596186:web:cf505a4344ae123fc545a3\"\n        };\n        // Initialize Firebase\n        firebase.initializeApp(firebaseConfig);\n    </script>\n    //\n    <script>\n        const auth = firebase.auth();\n        auth.onAuthStateChanged((firebaseUser) => {\n            if (firebaseUser) {\n                var url = location.protocol + \"//\" + location.host + \"/dashboard\"\n                window.location.replace(url);\n            }\n        });\n        $(\"#signup\").click(function () {\n            $(\"#first\").fadeOut(\"fast\", function () {\n                $(\"#second\").fadeIn(\"fast\");\n            });\n        });\n        $(\"#signin\").click(function () {\n            $(\"#second\").fadeOut(\"fast\", function () {\n                $(\"#first\").fadeIn(\"fast\");\n            });\n        });\n\n        $(\"#reset\").click(function (e) {\n            e.preventDefault();\n            var userEmail = $(\"#login_email\").val();\n            firebase.auth()\n                .sendPasswordResetEmail(userEmail)\n                .then(() => {\n                    alert(\"email sent\");\n                    console.log(\"Reset link sent\")\n                })\n                .catch(function (error) {\n                    // Handle Errors here.\n                    var errorCode = error.code;\n                    var errorMessage = error.message;\n                    console.log(errorMessage)\n                    alert(errorMessage);\n                });\n        });\n\n        $(\"#login\").submit(function (e) {\n            e.preventDefault();\n            var userEmail = $(\"#login_email\").val();\n            var password = $(\"#login_password\").val();\n\n            firebase.auth()\n                .signInWithEmailAndPassword(userEmail, password)\n                .then(() => {\n                    var url = location.protocol + \"//\" + location.host + \"/dashboard\"\n                    window.location.replace(url);\n                })\n                .catch(function (error) {\n                    // Handle Errors here.\n                    var errorCode = error.code;\n                    var errorMessage = error.message;\n                    console.log(errorMessage)\n                    alert(errorMessage);\n                });\n        });\n\n\n        $(\"#registration\").submit(function (e) {\n            e.preventDefault();\n            var userEmail = $(\"#signup_email\").val();\n            var password = $(\"#signup_password\").val();\n            firebase.auth()\n                .createUserWithEmailAndPassword(userEmail, password)\n                .then(() => {\n                    $(\"#second\").fadeOut(\"fast\")\n                    $(\"#first\").fadeIn(\"fast\");\n                })\n                .catch(function (error) {\n                    // Handle Errors here.\n                    var errorCode = error.code;\n                    var errorMessage = error.message;\n                    console.log(errorMessage)\n                    alert(errorMessage);\n                });\n        });\n\n        // $(function() {\n        //     $(\"form[name='login']\").validate({\n        //         rules: {\n        //             email: {\n        //                 required: true,\n        //                 email: true\n        //             },\n        //             password: {\n        //                 required: true,\n        //             }\n        //         },\n        //         messages: {\n        //             email: \"Please enter a valid email address\",\n        //             password: {\n        //                 required: \"Please enter password\",\n        //             }\n        //         },\n        //         submitHandler: function(form) {\n        //             form.submit();\n        //         }\n        //     });\n        // });\n\n        // $(function() {\n        //     $(\"form[name='registration']\").validate({\n        //         rules: {\n        //             firstname: \"required\",\n        //             lastname: \"required\",\n        //             email: {\n        //                 required: true,\n        //                 email: true\n        //             },\n        //             password: {\n        //                 required: true,\n        //                 minlength: 5\n        //             }\n        //         },\n        //         messages: {\n        //             firstname: \"Please enter your firstname\",\n        //             lastname: \"Please enter your lastname\",\n        //             password: {\n        //                 required: \"Please provide a password\",\n        //                 minlength: \"Your password must be at least 5 characters long\"\n        //             },\n        //             email: \"Please enter a valid email address\"\n        //         },\n        //         submitHandler: function(form) {\n        //             form.submit();\n        //         }\n        //     });\n        // });\n\n//   </script>\n</body>\n\n</html>",
+        "output": "str",
+        "x": 350,
+        "y": 200,
+        "wires": [
+            [
+                "9f5025f5.7a38c8"
+            ]
+        ]
+    },
+    {
+        "id": "a9ed7b37.479668",
+        "type": "comment",
+        "z": "e8a3a4c4.38b508",
+        "name": "Login",
+        "info": "",
+        "x": 110,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "5655924.6ec0d6c",
+        "type": "http request",
+        "z": "e8a3a4c4.38b508",
+        "name": "Current Weather Request",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 450,
+        "y": 420,
+        "wires": [
+            [
+                "2b8db9af.e56776"
+            ]
+        ]
+    },
+    {
+        "id": "5e7cedc8.fcadb4",
+        "type": "function",
+        "z": "e8a3a4c4.38b508",
+        "name": "Prep Request",
+        "func": "msg.url=`https://api.openweathermap.org/data/2.5/weather?id=${flow.get(\"ClientID\")}&appid=${flow.get(\"OWMAppId\")}&units=${flow.get(\"units\")}&lat=${flow.get(\"latitude\")}&lon=${flow.get(\"longitude\")}`\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 420,
+        "wires": [
+            [
+                "5655924.6ec0d6c"
+            ]
+        ]
+    },
+    {
+        "id": "1552de9d.813cf1",
+        "type": "comment",
+        "z": "e8a3a4c4.38b508",
+        "name": "Weather Dashboard",
+        "info": "",
+        "x": 150,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "4febae0a.3b85e",
+        "type": "link in",
+        "z": "e8a3a4c4.38b508",
+        "name": "Get Current Forecast",
+        "links": [
+            "8fc3a1ab.66354"
+        ],
+        "x": 75,
+        "y": 420,
+        "wires": [
+            [
+                "5e7cedc8.fcadb4"
+            ]
+        ]
+    },
+    {
+        "id": "8fc3a1ab.66354",
+        "type": "link out",
+        "z": "e8a3a4c4.38b508",
+        "name": "Run Get Current Forecast",
+        "links": [
+            "4febae0a.3b85e"
+        ],
+        "x": 1115,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "44ae9396.211adc",
+        "type": "link out",
+        "z": "e8a3a4c4.38b508",
+        "name": "Send Current Forecast",
+        "links": [
+            "ea8dc024.a230f"
+        ],
+        "x": 815,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "2b8db9af.e56776",
+        "type": "function",
+        "z": "e8a3a4c4.38b508",
+        "name": "Prep Response",
+        "func": "let errMsg=null\nif (msg.statusCode>=400){\n    try{\n        errMsg =msg.payload.message\n    }catch(e){\n        errMsg=msg.payload\n    }throw new Error(errMsg)\n}\nelse{\n    msg.countryCode = msg.payload.sys.country\n    msg.result.header = flow.get(\"Location\")\n    msg.longitude=msg.payload.coord.lon\n    msg.lattitude=msg.payload.coord.lat\n    // let tmpSunrise = msg.payload.sys.sunrise * 1000\n    // tmpSunrise = new Date(tmpSunrise)\n    // let sunrise = tmpSunrise.toLocaleTimeString([], { hour: '2-digit', minute: \"2-digit\", hour12: true })\n    \n    // let tmpSunset = msg.payload.sys.sunset * 1000\n    // tmpSunset = new Date(tmpSunset)\n    // let sunset = tmpSunset.toLocaleTimeString([], { hour: '2-digit', minute: \"2-digit\", hour12: true })\n    \n    msg.result.current = {\n        description: msg.payload.weather[0].description,\n        icon: msg.payload.weather[0].icon,\n        temperature: `${Math.round(msg.payload.main.temp)}${flow.get('owmTemperatureUnit')}`,\n        feelsLike: `${Math.round(msg.payload.main.feels_like)}${flow.get('owmTemperatureUnit')}`,\n        humidity: `${msg.payload.main.humidity}%`,\n        // sunrise,\n        // sunset\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 420,
+        "wires": [
+            [
+                "44ae9396.211adc"
+            ]
+        ]
+    },
+    {
+        "id": "a22d0ab1.079398",
+        "type": "switch",
+        "z": "e8a3a4c4.38b508",
+        "name": "Any Locations?",
+        "property": "Location",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 980,
+        "y": 320,
+        "wires": [
+            [
+                "8fc3a1ab.66354"
+            ],
+            [
+                "706599de.4fa9a8"
+            ]
+        ]
+    },
+    {
+        "id": "706599de.4fa9a8",
+        "type": "link out",
+        "z": "e8a3a4c4.38b508",
+        "name": "Run Get Current Forecast",
+        "links": [
+            "56200a04.695494",
+            "afb80193.c236a",
+            "c06a6a17.a4c318"
+        ],
+        "x": 1115,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "3d87fbe0.607b14",
+        "type": "change",
+        "z": "e8a3a4c4.38b508",
+        "name": "Prep Response",
+        "rules": [
+            {
+                "t": "set",
+                "p": "result",
+                "pt": "msg",
+                "to": "{}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 320,
+        "wires": [
+            [
+                "a22d0ab1.079398"
+            ]
+        ]
+    },
+    {
+        "id": "1a8f82af.c0fd1d",
+        "type": "http request",
+        "z": "e8a3a4c4.38b508",
+        "name": "Weather Forcast Request",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 450,
+        "y": 520,
+        "wires": [
+            [
+                "17634424.1101cc"
+            ]
+        ]
+    },
+    {
+        "id": "e244618a.b5d29",
+        "type": "function",
+        "z": "e8a3a4c4.38b508",
+        "name": "Prep Request",
+        "func": "msg.url=`https://api.openweathermap.org/data/2.5/forecast/daily?id=${flow.get(\"ClientID\")}&appid=${flow.get(\"OWMAppId\")}&units=${flow.get(\"units\")}&lat=${flow.get(\"latitude\")}&lon=${flow.get(\"longitude\")}&cnt=${flow.get(\"Count\")}`\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 520,
+        "wires": [
+            [
+                "1a8f82af.c0fd1d"
+            ]
+        ]
+    },
+    {
+        "id": "ea8dc024.a230f",
+        "type": "link in",
+        "z": "e8a3a4c4.38b508",
+        "name": "Get Future Forecast",
+        "links": [
+            "44ae9396.211adc",
+            "a75295fb.968198"
+        ],
+        "x": 75,
+        "y": 520,
+        "wires": [
+            [
+                "e244618a.b5d29"
+            ]
+        ]
+    },
+    {
+        "id": "ec7ab5c9.79a5b8",
+        "type": "link out",
+        "z": "e8a3a4c4.38b508",
+        "name": "Send Future Forecast",
+        "links": [
+            "78d5e853.916fa8"
+        ],
+        "x": 815,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "17634424.1101cc",
+        "type": "function",
+        "z": "e8a3a4c4.38b508",
+        "name": "Prep Response",
+        "func": "let errMsg=null\nif (msg.statusCode>=400){\n    try{\n        errMsg =msg.payload.message\n    }catch(e){\n        errMsg=msg.payload\n    }throw new Error(errMsg)\n}\nelse{\n    msg.result.fiveDay = []\n    let date\n    let tmpDate = null\n    let tmpEntry\n    let x = 0\n    let y = msg.payload.list.length\n    \n    for (;x < y; x++) {\n        tmpEntry = msg.payload.list[x]\n        tmpDate = tmpEntry.dt * 1000\n        tmpDate = new Date(tmpDate)\n        date = `${tmpDate.getDate()}/${(tmpDate.getMonth() + 1)}`\n    \n        msg.result.fiveDay.push({\n            date,\n            temperature: `${Math.round(tmpEntry.temp.max)}${flow.get('owmTemperatureUnit')}`,\n            description: tmpEntry.weather[0].description,\n            icon: tmpEntry.weather[0].icon,\n            \n        })\n        \n        // We only need 5 entries\n        if (x === 4) break\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 520,
+        "wires": [
+            [
+                "ec7ab5c9.79a5b8"
+            ]
+        ]
+    },
+    {
+        "id": "b925de84.bf7fe",
+        "type": "http request",
+        "z": "e8a3a4c4.38b508",
+        "name": "Sun Position Request",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 440,
+        "y": 620,
+        "wires": [
+            [
+                "d0f84840.eca458"
+            ]
+        ]
+    },
+    {
+        "id": "e8753c8c.7f6d",
+        "type": "function",
+        "z": "e8a3a4c4.38b508",
+        "name": "Prep Request",
+        "func": "msg.url=`https://api.ipgeolocation.io/astronomy?apiKey=${flow.get(\"AstronomyAPIKey\")}&lat=${flow.get(\"latitude\")}&long=${flow.get(\"longitude\")}`\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 220,
+        "y": 620,
+        "wires": [
+            [
+                "b925de84.bf7fe"
+            ]
+        ]
+    },
+    {
+        "id": "78d5e853.916fa8",
+        "type": "link in",
+        "z": "e8a3a4c4.38b508",
+        "name": "Get Sun Position",
+        "links": [
+            "ec7ab5c9.79a5b8"
+        ],
+        "x": 75,
+        "y": 620,
+        "wires": [
+            [
+                "e8753c8c.7f6d"
+            ]
+        ]
+    },
+    {
+        "id": "88731632.1ea228",
+        "type": "link out",
+        "z": "e8a3a4c4.38b508",
+        "name": "Send Sun Position",
+        "links": [
+            "56200a04.695494",
+            "afb80193.c236a",
+            "c06a6a17.a4c318"
+        ],
+        "x": 815,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "d0f84840.eca458",
+        "type": "function",
+        "z": "e8a3a4c4.38b508",
+        "name": "Prep Response",
+        "func": "let errMsg=null\nif (msg.statusCode>=400){\n    try{\n        errMsg =msg.payload.message\n    }catch(e){\n        errMsg=msg.payload\n    }throw new Error(errMsg)\n}\nelse{\n    msg.result.sun = {\n        date: msg.payload.date,\n        current_time: msg.payload.current_time,\n        sun_altitude: `${msg.payload.sun_altitude.toFixed(2)}${flow.get('AngleUnit')}`,\n        sun_distance: `${msg.payload.sun_distance.toFixed(2)}${flow.get('DistanceUnit')}`,\n        sun_azimuth: `${msg.payload.sun_azimuth.toFixed(2)}${flow.get('AngleUnit')}`,\n        sun_rise: msg.payload.sunrise,\n        sun_set: msg.payload.sunset,\n        day_length: msg.payload.day_length,\n    }\n    msg.payload.interval=flow.get(\"Interval\")\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 620,
+        "wires": [
+            [
+                "88731632.1ea228"
+            ]
+        ]
+    },
+    {
+        "id": "b6827fdc.5b993",
+        "type": "mqtt in",
+        "z": "e8a3a4c4.38b508",
+        "name": "Device",
+        "topic": "IOT/GRP15/Smart_Solar_Panel_Device",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "4cb42008.4d74f",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "x": 110,
+        "y": 1180,
+        "wires": [
+            [
+                "a88ec1d.aa9b84"
+            ]
+        ]
+    },
+    {
+        "id": "9bf62bfb.7c68b8",
+        "type": "change",
+        "z": "e8a3a4c4.38b508",
+        "name": "Set Location and Interval",
+        "rules": [
+            {
+                "t": "set",
+                "p": "Location",
+                "pt": "flow",
+                "to": "payload.Location",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "Interval",
+                "pt": "flow",
+                "to": "payload.Interval",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "latitude",
+                "pt": "flow",
+                "to": "payload.latitude",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "longitude",
+                "pt": "flow",
+                "to": "payload.longitude",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 550,
+        "y": 320,
+        "wires": [
+            [
+                "3d87fbe0.607b14"
+            ]
+        ]
+    },
+    {
+        "id": "cd4700a6.a8f92",
+        "type": "http request",
+        "z": "e8a3a4c4.38b508",
+        "name": "Get Firebase Data",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://smart-solar-panel-e0149-default-rtdb.firebaseio.com/Location.json",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 310,
+        "y": 320,
+        "wires": [
+            [
+                "9bf62bfb.7c68b8"
+            ]
+        ]
+    },
+    {
+        "id": "608ef598.3e53ac",
+        "type": "http in",
+        "z": "e8a3a4c4.38b508",
+        "name": "Dashboard",
+        "url": "/dashboard",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 320,
+        "wires": [
+            [
+                "cd4700a6.a8f92"
+            ]
+        ]
+    },
+    {
+        "id": "c16aae6f.d5ba4",
+        "type": "inject",
+        "z": "e8a3a4c4.38b508",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "*/5 6-22 * * *",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 940,
+        "wires": [
+            [
+                "19f7e0ad.5e144f"
+            ]
+        ]
+    },
+    {
+        "id": "e5cce927.46e4b8",
+        "type": "debug",
+        "z": "e8a3a4c4.38b508",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "statusCode",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "c307e7e1.b5e508",
+        "type": "function",
+        "z": "e8a3a4c4.38b508",
+        "name": "Prep Request",
+        "func": "msg.url=`https://api.ipgeolocation.io/astronomy?apiKey=${flow.get(\"AstronomyAPIKey\")}&lat=${flow.get(\"latitude\")}&long=${flow.get(\"longitude\")}`\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 200,
+        "y": 1000,
+        "wires": [
+            [
+                "a777ab03.d1f578"
+            ]
+        ]
+    },
+    {
+        "id": "a777ab03.d1f578",
+        "type": "http request",
+        "z": "e8a3a4c4.38b508",
+        "name": "Sun Position Request",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 440,
+        "y": 1000,
+        "wires": [
+            [
+                "a51f97e1.4f2fe8"
+            ]
+        ]
+    },
+    {
+        "id": "a51f97e1.4f2fe8",
+        "type": "function",
+        "z": "e8a3a4c4.38b508",
+        "name": "Prep Response",
+        "func": "var date=msg.payload.date\nvar time=msg.payload.current_time.split(\":\").splice(0,2).join(':')\nvar altitude=msg.payload.sun_altitude.toFixed(2)\nvar azimuth=msg.payload.sun_azimuth.toFixed(2)\nmsg.payload={}\nmsg.payload[time]={\n    \"altitude\":altitude,\n    \"azimuth\":azimuth\n}\nmsg.method=\"PATCH\"\nmsg.url=`https://smart-solar-panel-e0149-default-rtdb.firebaseio.com/Sun/${date}.json`\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 1000,
+        "wires": [
+            [
+                "3e740eb4.ef6222"
+            ]
+        ]
+    },
+    {
+        "id": "a36c12c8.e6f3c",
+        "type": "http request",
+        "z": "e8a3a4c4.38b508",
+        "name": "Update Firebase",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 200,
+        "y": 1060,
+        "wires": [
+            [
+                "e5cce927.46e4b8"
+            ]
+        ]
+    },
+    {
+        "id": "98b19b82.dcd288",
+        "type": "comment",
+        "z": "e8a3a4c4.38b508",
+        "name": "Send Real TIme Sun Position to FireBase",
+        "info": "",
+        "x": 220,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "92363161.3372c",
+        "type": "catch",
+        "z": "e8a3a4c4.38b508",
+        "name": "Catch all Errors",
+        "scope": null,
+        "uncaught": false,
+        "x": 140,
+        "y": 720,
+        "wires": [
+            [
+                "57f50a79.4ec184",
+                "2c9f7501.76e04a"
+            ]
+        ]
+    },
+    {
+        "id": "2c9f7501.76e04a",
+        "type": "debug",
+        "z": "e8a3a4c4.38b508",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "error",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "473911f3.d8dc8",
+        "type": "link out",
+        "z": "e8a3a4c4.38b508",
+        "name": "Send Current Forecast",
+        "links": [
+            "56200a04.695494",
+            "afb80193.c236a",
+            "c06a6a17.a4c318"
+        ],
+        "x": 495,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "57f50a79.4ec184",
+        "type": "function",
+        "z": "e8a3a4c4.38b508",
+        "name": "Prep Error",
+        "func": "msg.payload.header=`${msg.error.message}-${flow.get(\"Location\")}`\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 740,
+        "wires": [
+            [
+                "473911f3.d8dc8"
+            ]
+        ]
+    },
+    {
+        "id": "b7731abb.489698",
+        "type": "http response",
+        "z": "e8a3a4c4.38b508",
+        "name": "Dashboard Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 420,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "c06a6a17.a4c318",
+        "type": "link in",
+        "z": "e8a3a4c4.38b508",
+        "name": "Finalize",
+        "links": [
+            "706599de.4fa9a8",
+            "c6d14c76.49634",
+            "88731632.1ea228",
+            "473911f3.d8dc8"
+        ],
+        "x": 75,
+        "y": 840,
+        "wires": [
+            [
+                "49c7107e.72efc"
+            ]
+        ]
+    },
+    {
+        "id": "49c7107e.72efc",
+        "type": "template",
+        "z": "e8a3a4c4.38b508",
+        "name": "Dashboard",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width\">\n  <title>Weather Dashboard</title>\n  <link href=\"//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css\" class=\"glyphicon glyphicon-asteri\"\n    rel=\"stylesheet\" id=\"bootstrap-css\">\n  <script src=\"//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js\"></script>\n  <script src=\"//code.jquery.com/jquery-1.11.1.min.js\"></script>\n  <script\n    src=\"https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDyAlTrOXHpNjZMUcLvy3608W0a1Qo98lU&callback=initMap\"\n    defer></script>\n  <link href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css\" rel=\"stylesheet\"\n    integrity=\"sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1\" crossorigin=\"anonymous\">\n\n\n  <style type=\"text/css\">\n    #map {h\n      width: 100%;\n      height: 480px;\n    }\n  </style>\n  <style>\n    a:focus,\n    a:hover,\n    a {\n      outline: none;\n      text-decoration: none;\n    }\n\n    li,\n    ul {\n      list-style: none;\n      padding: 0;\n      margin: 0;\n    }\n\n    .header-top i {\n      font-size: 18px;\n    }\n\n    .bg-image {\n      background: url(../images/background-login.jpg) no-repeat 0 0 / cover;\n      position: relative;\n      width: 100%;\n      height: 100vh;\n      display: table;\n    }\n\n    .login-header {\n      display: inline-block;\n      width: 100%;\n      background: #0e1a35;\n    }\n\n    .login-signup {\n      display: table-cell;\n      vertical-align: middle;\n      width: 100%;\n    }\n\n    .login-logo img {\n      cursor: pointer;\n      max-width: 171px;\n      padding: 23px 15px 22px;\n      width: 100%;\n    }\n\n    .login-header .navbar-right {\n      margin-right: 0px;\n    }\n\n    .login-header .nav-tabs>li.active>a,\n    .login-header .nav-tabs>li.active>a:focus,\n    .login-header .nav-tabs>li.active>a:hover {\n      background-color: transparent;\n      border: none;\n      color: #fff;\n    }\n\n    .login-header .nav-tabs>li>a {\n      border: medium none;\n      border-radius: 0;\n      font-size: 14px;\n      font-weight: 500;\n      line-height: 48px;\n      padding: 15px 30px;\n      color: #fff;\n    }\n\n    .login-header .nav-tabs {\n      border-bottom: none;\n    }\n\n    .login-header .nav-tabs>li {\n      margin-bottom: 0px;\n    }\n\n    .login-header .nav>li>a:focus,\n    .login-header .nav>li>a:hover {\n      background: none;\n      text-decoration: none;\n    }\n\n    .login-header .nav-tabs>li.active {\n      border-bottom: 6px solid #5584ff;\n    }\n\n    .login-inner h1 {\n      color: #8492af;\n      font-size: 48px;\n      font-weight: 300;\n      text-align: center;\n      margin-top: 0;\n      margin-bottom: 20px;\n    }\n\n    .login-inner h1 span {\n      color: #5584ff;\n    }\n\n    .login-form {\n      text-align: center;\n    }\n\n    .login-form input {\n      -moz-border-bottom-colors: none;\n      -moz-border-left-colors: none;\n      -moz-border-right-colors: none;\n      -moz-border-top-colors: none;\n      background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n      border-color: -moz-use-text-color -moz-use-text-color #d4d9e3;\n      border-image: none;\n      border-style: none none solid;\n      border-width: medium medium 1px;\n      font-size: 13px;\n      font-weight: 300;\n      width: 100%;\n      color: #8492af;\n      padding: 15px 50px;\n      font-size: 17px;\n      max-width: 550px;\n    }\n\n    .login-form label {\n      margin-bottom: 30px;\n      width: 100%;\n    }\n\n    .user input {\n      background: rgba(0, 0, 0, 0) url(\"../images/user.png\") no-repeat scroll 7px 12px;\n    }\n\n    .pass input {\n      background: rgba(0, 0, 0, 0) url(\"../images/password.png\") no-repeat scroll 7px 12px;\n    }\n\n    .mail input {\n      background: rgba(0, 0, 0, 0) url(\"../images/mail.png\") no-repeat scroll 4px 12px;\n    }\n\n    .login-signup .tab-content {\n      background: #ffffff none repeat scroll 0 0;\n      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);\n      display: inline-block;\n      margin-top: -8px;\n      width: 100%;\n    }\n\n    .label {\n      text-align: right;\n      font-weight: bold;\n      width: 100px;\n      color: #303030;\n    }\n\n    .field {\n      width: 99%;\n    }\n\n    .slimField {\n      width: 80px;\n    }\n\n    .wideField {\n      width: 200px;\n    }\n\n    .form-btn {\n      background: #5584ff none repeat scroll 0 0;\n      border: medium none;\n      border-radius: 100px;\n      color: #ffffff;\n      font-weight: 400;\n      max-width: 250px;\n      padding: 10px 0;\n      position: relative;\n      width: 100%;\n      margin: 40px 0;\n      box-shadow: 0 2px 8px #d2d2d2;\n      -moz-box-shadow: 0 2px 8px #d2d2d2;\n      -webkit-box-shadow: 0 2px 8px #d2d2d2;\n    }\n\n    .form-btn::before {\n      content: \"\";\n      font-family: FontAwesome;\n      position: absolute;\n      right: 17px;\n      top: 9px;\n    }\n\n    .form-details {\n      padding: 35px 0;\n    }\n\n    .tab-content .tab-pane {\n      padding: 70px 0;\n    }\n\n\n    /*Login Signup Page*/\n\n\n    /*Home Page*/\n\n    .home {\n      background: #f6f7fa;\n    }\n\n    #navigation {\n      background: #0e1a35;\n    }\n\n    #navigation {\n      padding: 0;\n    }\n\n    .display-table {\n      display: table;\n      padding: 0;\n      height: 100%;\n      width: 100%;\n    }\n\n    .display-table-row {\n      display: table-row;\n      height: 100%;\n    }\n\n    .display-table-cell {\n      display: table-cell;\n      float: none;\n      height: 100%;\n    }\n\n    .v-align {\n      vertical-align: top;\n    }\n\n    .logo img {\n      max-width: 180px;\n      padding: 16px 0 17px;\n      width: 100%;\n    }\n\n    .header-top {\n      margin: 0;\n      padding-top: 2px;\n    }\n\n    .header-top img {\n      border-radius: 50%;\n      max-width: 48px !important;\n      width: 100%;\n    }\n\n    .add-project {\n      background: #5584ff none repeat scroll 0 0;\n      border-radius: 100px;\n      color: #ffffff;\n      font-size: 14px;\n      font-weight: 600;\n      padding: 10px 27px 10px 45px;\n      position: relative;\n    }\n\n    .header-rightside .nav>li>a:focus,\n    .header-rightside .nav>li>a:hover {\n      background: none;\n      text-decoration: none;\n    }\n\n    .add-project::before {\n      background: rgba(0, 0, 0, 0) url(\"../images/plus.png\") no-repeat scroll 0 0;\n      content: \"\";\n      ;\n      height: 12px;\n      left: 17px;\n      position: absolute;\n      top: 12px;\n      width: 12px;\n    }\n\n    .add-project:hover {\n      color: #ffffff;\n    }\n\n    .header-top i {\n      color: #0e1a35;\n    }\n\n    .icon-info {\n      position: relative;\n    }\n\n    .navi i {\n      font-size: 20px;\n    }\n\n    .label.label-primary {\n      border-radius: 50%;\n      font-size: 9px;\n      left: 8px;\n      position: absolute;\n      top: -9px;\n    }\n\n    .icon-info .label {\n      border: 2px solid #ffffff;\n      font-weight: 500;\n      padding: 3px 5px;\n      text-align: center;\n    }\n\n    .header-top li {\n      display: inline-block;\n      text-align: center;\n    }\n\n    .header-top .dropdown-toggle {\n      color: #0e1a35;\n    }\n\n    .header-top .dropdown-menu {\n      border: medium none;\n      left: -85px;\n      padding: 17px;\n    }\n\n    .view {\n      background: #5584ff none repeat scroll 0 0;\n      border-radius: 100px;\n      color: #ffffff;\n      display: inline-block;\n      font-size: 14px;\n      font-weight: 600;\n      margin-top: 10px;\n      padding: 10px 15px;\n    }\n\n    .navbar-content>span {\n      font-size: 13px;\n      font-weight: 700;\n    }\n\n    .img-responsive {\n      width: 100%;\n    }\n\n    #navigation {\n      -webkit-transition: all 0.5s ease;\n      -moz-transition: all 0.5s ease;\n      -o-transition: all 0.5s ease;\n      transition: all 0.5s ease;\n    }\n\n    .search input {\n      border: none;\n      font-size: 15px;\n      padding: 15px 9px;\n      width: 100%;\n      background: rgba(0, 0, 0, 0) url(\"../images/search.png\") no-repeat scroll 99% 12px;\n      color: #8492af;\n    }\n\n    header {\n      background: #0e1a35 none repeat scroll 0 0;\n      box-shadow: 0 1px 12px rgba(0, 0, 0, 0.04);\n      display: inline-block !important;\n      line-height: 23px;\n      padding: 15px;\n      transition: all 0.5s ease 0s;\n      width: 100%;\n      -webkit-transition: all 0.5s ease;\n      -moz-transition: all 0.5s ease;\n      -o-transition: all 0.5s ease;\n      transition: all 0.5s ease;\n    }\n\n    .logo {\n      text-align: center;\n    }\n\n    .navi a {\n      border-bottom: 1px solid #0d172e;\n      border-top: 1px solid #0d172e;\n      color: #ffffff;\n      display: block;\n      font-size: 17px;\n      font-weight: 500;\n      padding: 28px 20px;\n      text-decoration: none;\n    }\n\n    .navi i {\n      margin-right: 15px;\n      color: #5584ff;\n    }\n\n    .navi .active a {\n      background: #122143;\n      border-left: 5px solid #5584ff;\n      padding-left: 15px;\n    }\n\n    .navi a:hover {\n      background: #122143 none repeat scroll 0 0;\n      border-left: 5px solid #5584ff;\n      display: block;\n      padding-left: 15px;\n    }\n\n    .navbar-default {\n      background-color: #ffffff;\n      border-color: #ffffff;\n    }\n\n    .navbar-toggle {\n      border: none;\n    }\n\n    .navbar-default .navbar-toggle:focus,\n    .navbar-default .navbar-toggle:hover {\n      background-color: rgba(0, 0, 0, 0);\n    }\n\n    .navbar-default .navbar-toggle .icon-bar {\n      background-color: #0e1a35;\n    }\n\n    .circle-logo {\n      margin: 0 auto;\n      max-width: 30px !important;\n      text-align: center;\n    }\n\n    .hidden-xs {\n      -webkit-transition: all 0.5s ease;\n      -moz-transition: all 0.5s ease;\n      -o-transition: all 0.5s ease;\n      transition: all 0.5s ease;\n    }\n\n    .user-dashboard {\n      padding: 0 20px;\n    }\n\n    .user-dashboard h1 {\n      color: #0e1a35;\n      font-size: 30px;\n      font-weight: bold;\n      margin: 0;\n      padding: 21px 0;\n    }\n\n    .sales {\n      background: #ffffff none repeat scroll 0 0;\n      border: 1px solid #d4d9e3;\n      display: inline-block;\n      padding: 15px;\n      width: 100%;\n    }\n\n    .sales button {\n      background: rgba(0, 0, 0, 0) none repeat scroll 0 0;\n      border: 1px solid #dadee7;\n      border-radius: 100px;\n      font-size: 15px;\n      letter-spacing: 0.5px;\n      padding-right: 32px;\n      color: #0e1a35;\n    }\n\n    .sales button::before {\n      content: \"\";\n      font-family: FontAwesome;\n      position: absolute;\n      right: 12px;\n      top: 11px;\n    }\n\n    .sales .btn-group {\n      float: right;\n    }\n\n    .sales h2 {\n      color: #8492af;\n      float: left;\n      font-size: 21px;\n      font-weight: 600;\n      margin: 0;\n      padding: 9px 0 0;\n    }\n\n    .btn.btn-secondary.btn-lg.dropdown-toggle>span {\n      font-size: 15px;\n      font-weight: 600;\n      letter-spacing: 0.5px;\n    }\n\n    .sales .dropdown-menu {\n      margin: 0px;\n      padding: 0px;\n      border: 0px;\n      border-radius: 8px;\n      width: 100%;\n      color: #0e1a35;\n    }\n\n    .sales .btn-group.open .dropdown-toggle,\n    .btn.active,\n    .btn:active {\n      box-shadow: none;\n    }\n\n    .sales .dropdown-menu>a {\n      color: #0e1a35;\n      display: inline-block;\n      font-weight: 800;\n      padding: 9px 0;\n      text-align: center;\n      width: 100%;\n    }\n\n    #my-cool-chart svg {\n      width: 100%;\n    }\n\n    .sales .dropdown-menu>a:hover {\n      color: #5584FF;\n    }\n\n    .shield-buttons {\n      display: none;\n    }\n\n    .close,\n    .close:focus,\n    .close:hover {\n      color: #fff;\n      ;\n      opacity: 1;\n      text-shadow: none;\n    }\n\n    .modal-body input {\n      border: 1px solid #d4d9e3;\n      font-size: 14px;\n      font-weight: 300;\n      margin: 5px 0;\n      padding: 14px 10px;\n      width: 100%;\n      color: #8492af;\n    }\n\n    .modal-body textarea {\n      border: 1px solid #d4d9e3;\n      font-size: 14px;\n      font-weight: 300;\n      height: 200px;\n      margin-top: 5px;\n      padding: 9px 10px;\n      width: 100%;\n      color: #8492af;\n    }\n\n    .modal-header.login-header h4 {\n      color: #ffffff;\n    }\n\n    .modal-footer .add-project {\n      background: #5584ff none repeat scroll 0 0;\n      border: medium none;\n      border-radius: 100px;\n      color: #ffffff;\n      font-size: 14px;\n      font-weight: 600;\n      padding: 10px 30px;\n      position: relative;\n    }\n\n    .modal-footer .add-project::before {\n      display: none;\n    }\n\n    .modal-footer {\n      border: 0 none;\n      padding: 10px 15px 26px;\n      text-align: right;\n    }\n\n    .cancel {\n      background: #0E1A35;\n      border: medium none;\n      border-radius: 100px;\n      color: #ffffff;\n      font-size: 14px;\n      font-weight: 600;\n      padding: 10px 30px;\n      position: relative;\n\n    }\n\n    .modal {\n      top: 20%;\n    }\n\n    .modal-header .close {\n      margin-top: 2px;\n    }\n\n    .search input:focus {\n      border-bottom: 1px solid #BDC4D4;\n      line-height: 22px;\n      transition: 0.1s all;\n    }\n\n    .modal-header.login-header {\n      border-top-left-radius: 5px;\n      border-top-right-radius: 5px;\n      /*Main CSS*/\n\n\n\n\n\n\n      @media only screen and (max-device-width: 767px) {\n        .login-logo img {\n          margin: 0 auto;\n        }\n\n        .login-details .nav-tabs>li {\n          text-align: center;\n          width: 50%;\n        }\n\n        .login-signup .login-inner h1 {\n          font-size: 26px;\n          margin-bottom: 0;\n          margin-top: 10px;\n        }\n\n        .login-inner .login-form input {\n          font-size: 15px;\n          max-width: 100%;\n          padding: 15px 45px;\n        }\n\n        .login-inner .form-details {\n          padding: 25px;\n        }\n\n        .login-inner .login-form label {\n          margin-bottom: 20px;\n          width: 100%;\n        }\n\n        .login-inner .form-btn {\n          margin: 0;\n          max-width: 180px;\n        }\n\n        .tab-content .tab-pane {\n          padding: 20px 0;\n        }\n\n        #navigation .navi a {\n          font-size: 14px;\n          padding: 20px;\n          text-align: center;\n        }\n\n        #navigation .navi i {\n          margin-right: 0px;\n        }\n\n        #navigation .navi a:hover,\n        #navigation .navi .active a {\n          background: #122143 none repeat scroll 0 0;\n          border-left: none;\n          display: block;\n          padding-left: 20px;\n        }\n\n        header .header-top img {\n          max-width: 38px !important;\n        }\n\n        .v-align header {\n          padding: 12px 15px;\n        }\n\n        header .header-top li {\n          padding-left: 13px;\n          padding-right: 6px;\n        }\n\n        .navbar-default .navbar-toggle {\n          border-color: rgba(0, 0, 0, 0);\n        }\n\n        .navbar-header .navbar-toggle {\n          float: left;\n          margin: 0;\n          padding: 0;\n          top: 12px;\n        }\n\n        button,\n        html [type=\"button\"],\n        [type=\"reset\"],\n        [type=\"submit\"] {\n          outline: medium none;\n        }\n\n        .user-dashboard .sales h2 {\n          color: #8492af;\n          float: left;\n          font-size: 14px;\n          font-weight: 600;\n          margin: 0;\n          padding: 13px 0 0;\n        }\n\n        .user-dashboard .btn.btn-secondary.btn-lg.dropdown-toggle>span {\n          font-size: 11px;\n        }\n\n        .user-dashboard .sales button {\n          font-size: 11px;\n          padding-right: 23px;\n        }\n\n        .user-dashboard .sales h2 {\n          font-size: 12px;\n        }\n\n        .gutter {\n          padding: 0;\n        }\n      }\n\n      @media only screen and (max-device-width: 992px) {\n        header .header-top li {\n          padding-left: 20px !important;\n          padding-right: 0;\n        }\n\n        header .logo img {\n          max-width: 125px !important;\n        }\n\n      }\n\n      @media only screen and (min-device-width: 767px) and (max-device-width: 998px) {\n        .user-dashboard .header-top {\n          padding-top: 5px;\n        }\n\n        .user-dashboard .header-rightside {\n          display: inline-block;\n          float: left;\n          width: 100%;\n        }\n\n        .user-dashboard .header-rightside .header-top img {\n          max-width: 41px !important;\n        }\n\n        .user-dashboard .sales button {\n          font-size: 10px;\n        }\n\n        .user-dashboard .btn.btn-secondary.btn-lg.dropdown-toggle>span {\n          font-size: 12px;\n        }\n\n        .user-dashboard .sales h2 {\n          font-size: 15px;\n        }\n      }\n\n      @media only screen and (min-device-width:998px) and (max-device-width: 1350px) {\n        #navigation .logo img {\n          max-width: 130px;\n          padding: 16px 0 17px;\n          width: 100%;\n        }\n      }\n  </style>\n</head>\n\n<body class=\"home\">\n  <div class=\"container-fluid display-table\">\n    <div class=\"row display-table-row\">\n      <div class=\"col-md-2 col-sm-1 hidden-xs display-table-cell v-align box\" id=\"navigation\">\n        <div class=\"logo\">\n          <a hef=\"home.html\"><img src=\"https://www.clipartmax.com/png/full/9-96751_vector-green-sun-logo-download-sunshine-logo-vector-png.png\"\n              alt=\"merkery_logo\" class=\"hidden-xs hidden-sm\">\n            <img src=\"https://seeklogo.com/images/S/solar-smart-logo-8CC973E4EB-seeklogo.com.png\" alt=\"merkery_logo\"\n              class=\"visible-xs visible-sm circle-logo\">\n          </a>\n        </div>\n        <div class=\"navi\">\n          <ul>\n            <li id=\"home\" class=\"active\"><a href=\"#\"><i class=\"fa fa-home\" aria-hidden=\"true\"></i><span\n                  class=\"hidden-xs hidden-sm\">Home</span></a></li>\n            <li id=\"location_tab\"><a href=\"#\"><i class=\"fa fa-tasks\" aria-hidden=\"true\"></i><span\n                  class=\"hidden-xs hidden-sm\">Location</span></a></li>\n            <li id=\"interval\"><a href=\"#\"><i class=\"fa fa-bar-chart\" aria-hidden=\"true\"></i><span\n                  class=\"hidden-xs hidden-sm\">Change Interval</span></a></li>\n          </ul>\n        </div>\n      </div>\n      <div class=\"col-md-10 col-sm-11 display-table-cell v-align\">\n        <!--<button type=\"button\" class=\"slide-toggle\">Slide Toggle</button> -->\n        <div class=\"row\">\n          <header>\n            <div class=\"col-md-7\">\n              <nav class=\"navbar-default pull-left\">\n                <div class=\"navbar-header\">\n                  <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"offcanvas\" data-target=\"#side-menu\"\n                    aria-expanded=\"false\">\n                    <span class=\"sr-only\">Toggle navigation</span>\n                    <span class=\"icon-bar\"></span>\n                    <span class=\"icon-bar\"></span>\n                    <span class=\"icon-bar\"></span>\n                  </button>\n                </div>\n              </nav>\n            </div>\n            <div class=\"col-md-5\">\n              <div class=\"header-rightside\">\n                <ul class=\"list-inline header-top pull-right\">\n                  <li class=\"hidden-xs\"><a href=\"#\" class=\"add-project\" data-toggle=\"modal\" data-target=\"#add_project\"\n                      id=\"Logout\" name=>Logout</a></li>\n                </ul>\n                </ul>\n              </div>\n            </div>\n          </header>\n        </div>\n        <div class=\"user-dashboard\" id=\"home-div\">\n            <br />\n            <div style=\"font-weight: bold;\">\n          <h2 style=\"text-align: center;margin: auto\">{{payload.header}}</h2>\n          <h2 style=\"text-align: center;margin: auto\">{{result.header}}</h2>\n          </div>\n          <div class=\"container\">\n            <br />\n            <div class=\"row\" style=\"display: flex; flex-direction: column; align-items: stretch; width:100%\">\n              <div style=\"width: 100%\">\n                <div class=\"panel panel-primary\" style=\"height: 450px\">\n                  <div class=\"panel-heading\" style=\"height: 10%\">\n                    <h4 class=\"text-center\">Current Location\n                    </h4>\n                  </div>\n                  <div>\n                    <iframe width=\"100%\" height=\"90%\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\"\n                      src=\"https://maps.google.com/maps?hl=en&amp;q={{payload.location.latitude}},{{payload.location.longitude}}+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed\">\n\n                    </iframe>\n                  </div>\n                </div>\n              </div>\n              <div style=\"width: 100%\">\n                <div class=\"panel panel-primary\" style=\"height: 450px;\">\n                  <div class=\"panel-heading\" style=\"height: 10%\">\n                    <h4 class=\"text-center\">Current Weather Forecast\n                    </h4>\n                  </div>\n                  <div class=\"panel-body text-center\">\n                    <p>\n                      <strong>{{result.current.description}}</strong>\n                      <img src=\"https://openweathermap.org/img/wn/{{result.current.icon}}@2x.png\" />\n                    </p>\n                  </div>\n                  <ul class=\"list-group list-group-flush\">\n                    <li class=\"list-group-item liitem\"><strong>Temperature:</strong>\n                      <span class=\"pull-right\">{{result.current.temperature}}</span>\n                    </li>\n                    <li class=\"list-group-item liitem\"><strong>Feels Like:</strong>\n                      <span class=\"pull-right\">{{result.current.feelsLike}}</span>\n                    </li>\n                    <li class=\"list-group-item liitem\"><strong>Humidity:</strong>\n                      <span class=\"pull-right\">{{result.current.humidity}}</span>\n                    </li>\n                  </ul>\n                </div>\n              </div>\n              <div style=\"width: 100%\">\n                <div class=\"panel panel-primary\" style=\"height: 450px;\">\n                  <div class=\"panel-heading\" style=\"height: 10%\">\n                    <h4 class=\"text-center\">5 Day Weather Forecast\n                    </h4>\n                  </div>\n                  <table class=\"table table-hover\" style=\"height: 90%\">\n                    {{#result.fiveDay}}\n                    <tr>\n                      <td>{{date}}</td>\n                      <td>{{temperature}} - {{description}}</td>\n                      <td><img style=\"margin-top: -10px;\" src=\"https://openweathermap.org/img/wn/{{icon}}.png\" /></td>\n                    </tr>\n                    {{/result.fiveDay}}\n                  </table>\n                </div>\n              </div>\n              <div style=\"width: 100%\">\n                <div class=\"panel panel-primary\" style=\"height: 450px;\">\n                  <div class=\"panel-heading\" style=\"height: 10%\">\n                    <h4 class=\"text-center\">Current Sun Position\n                    </h4>\n                  </div>\n                  <ul class=\"list-group list-group-flush\" style=\"height: 90%\">\n                    <li class=\"list-group-item liitem\"><strong>Date:</strong>\n                      <span class=\"pull-right\">{{result.sun.date}}</span>\n                    </li>\n                    <li class=\"list-group-item liitem\"><strong>Local Time:</strong>\n                      <span class=\"pull-right\">{{result.sun.current_time}}</span>\n                    </li>\n                    <li class=\"list-group-item liitem\"><strong>Sun Altitude:</strong>\n                      <span class=\"pull-right\">{{result.sun.sun_altitude}}</span>\n                    </li>\n                    <li class=\"list-group-item liitem\"><strong>Sun Azimuth:</strong>\n                      <span class=\"pull-right\">{{result.sun.sun_azimuth}}</span>\n                    </li>\n                    <li class=\"list-group-item liitem\"><strong>Sun Distance:</strong>\n                      <span class=\"pull-right\">{{result.sun.sun_distance}}</span>\n                    </li>\n                    <li class=\"list-group-item liitem\"><strong>Sunrise:</strong>\n                      <span class=\"pull-right\">{{result.sun.sun_rise}}</span>\n                    </li>\n                    <li class=\"list-group-item liitem\"><strong>Sunset:</strong>\n                      <span class=\"pull-right\">{{result.sun.sun_set}}</span>\n                    </li>\n                    <li class=\"list-group-item liitem\"><strong>Day Length:</strong>\n                      <span class=\"pull-right\">{{result.sun.day_length}}</span>\n                    </li>\n                  </ul>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"user-dashboard\" id=\"location-div\" hidden=true>\n            <br />\n            <div style=\"font-weight: bold;\">\n          <h2 style=\"text-align: center;margin: auto\">Change to a New Location</h2>\n          </div>\n          <br />\n          <!-- Search input -->\n          <div id=\"locationField\">\n            <input id=\"autocomplete\" class=\"controls\" type=\"text\" placeholder=\"Enter your address\"\n              style=\"padding: 15px; font-size: 20px; border: 1px solid grey; float: left; width: 80%; background: #f1f1f1;\">\n            {{!--<input id=\"autocomplete\" placeholder=\"Enter your address\" --}} {{!-- onFocus=\"geolocate()\"\n              type=\"text\"></input>--}}\n          </div>\n          <br/>\n\n\n          <!-- Google map -->\n          <div id=\"map\" class=\"panel panel-primary\" style=\"height: 450px\"></div>\n\n          <!-- Display geolocation data -->\n          <br />\n          <h2 style=\"text-align: left;margin: auto\">Selected Location</h2>\n          <br />\n          <table id=\"address\">\n            <tr>\n              <td class=\"label\">Street address</td>\n              <td class=\"slimField\"><input class=\"field\" id=\"street_number\" disabled=\"true\"></input></td>\n              <td class=\"wideField\" colspan=\"2\"><input class=\"field\" id=\"route\" disabled=\"true\"></input></td>\n            </tr>\n            <tr>\n              <td class=\"label\">City</td>\n              <td class=\"wideField\" colspan=\"3\"><input class=\"field\" id=\"locality\" disabled=\"true\"></td>\n            </tr>\n            <tr>\n              <td class=\"label\">State</td>\n              <td class=\"wideField\"><input class=\"field\" id=\"administrative_area_level_1\" disabled=\"true\"></input></td>\n            </tr>\n            <tr>\n              <td class=\"label\">Zip code</td>\n              <td class=\"wideField\"><input class=\"field\" id=\"postal_code\" disabled=\"true\"></input></td>\n            </tr>\n\n            <tr>\n              <td class=\"label\">Country</td>\n              <td class=\"wideField\" colspan=\"3\"><input class=\"field\" id=\"country\" disabled=\"true\"></input></td>\n            </tr>\n            <tr>\n              <td class=\"label\">Lattitude</td>\n              <td class=\"wideField\" colspan=\"3\"><input class=\"field\" id=\"lat\" disabled=\"true\"></input></td>\n            </tr>\n            <tr>\n              <td class=\"label\">Longitude</td>\n              <td class=\"wideField\" colspan=\"3\"><input class=\"field\" id=\"lon\" disabled=\"true\"></input></td>\n            </tr>\n          </table>\n          <br/>\n          <button type=\"submit\" form=\"nameform\" value=\"Save\" id=\"save_location\">Save</button>\n        </div>\n        <div class=\"user-dashboard\" id=\"interval-div\" hidden=true>\n            <br />\n            <div style=\"font-weight: bold;\">\n            <h2 style=\"text-align: center;margin: auto\">Change the Time Interval for the Solar Panel Adjustment</h2>\n            </div>\n            <br />\n            <div>\n                <label>Currently the time interval is set to: {{payload.interval}}min</label>\n            </div>\n            <br />\n            <div>\n                <label>Choose the time interval from this list: </label>\n                <select class=\"timer\">\n                  <option value=\"5\">5min</option>\n                  <option value=\"10\">10min</option>\n                  <option value=\"15\">15min</option>\n                  <option value=\"20\">20min</option>\n                  <option value=\"25\">25min</option>\n                  <option value=\"30\">30min</option>\n                  <option value=\"45\">45min</option>\n                  <option value=\"60\">60min</option>\n                  <option value=\"90\">90min</option>\n                  <option value=\"120\">120min</option>\n                </select>\n                <button type=\"submit\" form=\"nameform\" value=\"Save\" id=\"save_timer\">Save</button>\n            </div>\n        </div>\n      </div>\n    </div>\n\n  </div>\n  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) and Bootstrap -->\n  <script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js\"></script>\n  <script src=\"//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>\n  <!-- Include Firebase Library and Config-->\n  <script src=\"//www.gstatic.com/firebasejs/4.5.0/firebase.js\"></script>\n  <script>\n    // Your web app's Firebase configuration\n    var firebaseConfig = {\n      apiKey: \"AIzaSyAumggDvGuhfw0gN41OF1znmUe55zVVi5s\",\n      authDomain: \"smart-solar-panel-e0149.firebaseapp.com\",\n      databaseURL: \"https://smart-solar-panel-e0149-default-rtdb.firebaseio.com\",\n      projectId: \"smart-solar-panel-e0149\",\n      storageBucket: \"smart-solar-panel-e0149.appspot.com\",\n      messagingSenderId: \"394213596186\",\n      appId: \"1:394213596186:web:cf505a4344ae123fc545a3\"\n    };\n    // Initialize Firebase\n    firebase.initializeApp(firebaseConfig);\n  </script>\n  <script>\n    firebase.auth().onAuthStateChanged((firebaseUser) => {\n      if (!firebaseUser) {\n        var url = location.protocol + \"//\" + location.host + \"/login\"\n        window.location.replace(url);\n      }\n    });\n    $(document).ready(function () {\n      $(\"#Logout\").click(function (e) {\n        e.preventDefault()\n        firebase.auth()\n          .signOut()\n          .then(function () {\n            console.log(\"Logout Success\")\n            // var url = location.protocol + \"//\" + location.host + \"/login\"\n            // window.location.replace(url);\n            // location.reload();\n          })\n          .catch(function (error) {\n            console.log(\"Faile\")\n            alert(\"error signing out, check network connection\");\n          });\n      });\n\n      $(\"#home\").click(function (e) {\n        e.preventDefault()\n        $(\"#home\").addClass('active')\n        $(\"#location_tab\").removeClass('active')\n        $(\"#interval\").removeClass('active')\n\n        $('#home-div').removeAttr('hidden');\n        $('#location-div').attr(\"hidden\", true);\n        $('#interval-div').attr(\"hidden\", true);\n      });\n\n      $(\"#location_tab\").click(function (e) {\n        e.preventDefault()\n        $(\"#home\").removeClass('active')\n        $(\"#location_tab\").addClass('active')\n        $(\"#interval\").removeClass('active')\n\n        $('#home-div').attr(\"hidden\", true);\n        $('#location-div').removeAttr('hidden');\n        $('#interval-div').attr(\"hidden\", true);\n      });\n\n      $(\"#interval\").click(function (e) {\n        e.preventDefault()\n        $(\"#home\").removeClass('active')\n        $(\"#location_tab\").removeClass('active')\n        $(\"#interval\").addClass('active')\n\n        $('#home-div').attr(\"hidden\", true);\n        $('#location-div').attr(\"hidden\", true);\n        $('#interval-div').removeAttr('hidden');\n      });\n\n      \n      $(\"#save_location\").click(function (e) {\n        e.preventDefault()\n        var place = $('#locality').val()\n        var lat =   $('#lat').val()\n        var lon =   $('#lon').val()\n        var body={\n            \"Location\":place,\n            \"latitude\":lat,\n            \"longitude\":lon\n        }\n        $.ajax({\n          method: \"PATCH\",\n          url: \"https://smart-solar-panel-e0149-default-rtdb.firebaseio.com/Location.json\",\n          data: JSON.stringify(body)\n        })\n          .done(function() {\n            console.log( \"Location Updated Successfully\" );\n            alert(\"Location Updated Successfully\")\n          })\n          .fail(function() {\n            alert( \"Failed to Update\" );\n          })\n      });\n      \n      $(\"#save_timer\").click(function (e) {\n        e.preventDefault()\n        var time_interval =$(\"select.timer\").children(\"option:selected\").val()\n        var body={\n            \"Interval\":time_interval\n        }\n        $.ajax({\n          method: \"PATCH\",\n          url: \"https://smart-solar-panel-e0149-default-rtdb.firebaseio.com/Location.json\",\n          data: JSON.stringify(body)\n        })\n          .done(function() {\n            console.log( \"Time Interval Updated Successfully\" );\n            alert(\"Interval Updated Successfully\")\n          })\n          .fail(function() {\n            alert( \"Failed to Update\" );\n          })\n      });\n\n    });\n  </script>\n  <script>\n    var placeSearch, autocomplete, autocomplete_postalcode, autocomplete_city;\n    var componentForm = {\n      street_number: 'short_name',\n      route: 'long_name',\n      locality: 'long_name',\n      administrative_area_level_1: 'short_name',\n      country: 'long_name',\n      postal_code: 'short_name'\n    };\n    function initMap() {\n      var map = new google.maps.Map(document.getElementById('map'), {\n        center: { lat: {{lattitude}}, lng: {{longitude}} },\n        zoom: 17\n      });\n      var input = document.getElementById('autocomplete');\n      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);\n\n      var autocomplete = new google.maps.places.Autocomplete(input);\n      autocomplete.bindTo('bounds', map);\n\n      var infowindow = new google.maps.InfoWindow();\n      var marker = new google.maps.Marker({\n        map: map,\n        anchorPoint: new google.maps.Point(0, -29)\n      });\n      marker.setPosition({ lat: {{lattitude}}, lng: {{longitude}} });\n      marker.setVisible(true);    \n      autocomplete.addListener('place_changed', function () {\n        infowindow.close();\n        marker.setVisible(false);\n        var place = autocomplete.getPlace();\n        if (!place.geometry) {\n          window.alert(\"Autocomplete's returned place contains no geometry\");\n          return;\n        }\n\n        // If the place has a geometry, then present it on a map.\n        if (place.geometry.viewport) {\n          map.fitBounds(place.geometry.viewport);\n        } else {\n          map.setCenter(place.geometry.location);\n          map.setZoom(17);\n        }\n        marker.setIcon(({\n          url: place.icon,\n          size: new google.maps.Size(71, 71),\n          origin: new google.maps.Point(0, 0),\n          anchor: new google.maps.Point(17, 34),\n          scaledSize: new google.maps.Size(35, 35)\n        }));\n        marker.setPosition(place.geometry.location);\n        marker.setVisible(true);\n\n        var address = '';\n        if (place.address_components) {\n          address = [\n            (place.address_components[0] && place.address_components[0].short_name || ''),\n            (place.address_components[1] && place.address_components[1].short_name || ''),\n            (place.address_components[2] && place.address_components[2].short_name || '')\n          ].join(' ');\n        }\n\n        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);\n        infowindow.open(map, marker);\n\n        // Location details\n        for (var i = 0; i < place.address_components.length; i++) {\n          var addressType = place.address_components[i].types[0];\n          if (componentForm[addressType]) {\n            var val = place.address_components[i][componentForm[addressType]];\n            document.getElementById(addressType).value = val;\n          }\n        }\n        document.getElementById('lat').value = place.geometry.location.lat();\n        document.getElementById('lon').value = place.geometry.location.lng();\n      });\n    }\n  </script>\n</body>\n\n</html>",
+        "output": "str",
+        "x": 210,
+        "y": 840,
+        "wires": [
+            [
+                "b7731abb.489698"
+            ]
+        ]
+    },
+    {
+        "id": "19f7e0ad.5e144f",
+        "type": "trigger",
+        "z": "e8a3a4c4.38b508",
+        "name": "Trigger at each 5 minutes",
+        "op1": "1",
+        "op2": "0",
+        "op1type": "num",
+        "op2type": "str",
+        "duration": "-5",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "min",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 370,
+        "y": 940,
+        "wires": [
+            [
+                "a3078b8b.ff7528"
+            ]
+        ]
+    },
+    {
+        "id": "a88ec1d.aa9b84",
+        "type": "switch",
+        "z": "e8a3a4c4.38b508",
+        "name": "Ready to Recive?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "I am ready to Receive",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 290,
+        "y": 1180,
+        "wires": [
+            [
+                "7fae7f92.c1099"
+            ],
+            [
+                "93eb699.08d1298"
+            ]
+        ]
+    },
+    {
+        "id": "7fae7f92.c1099",
+        "type": "http request",
+        "z": "e8a3a4c4.38b508",
+        "name": "Get Firebase Data",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://smart-solar-panel-e0149-default-rtdb.firebaseio.com/Sun.json",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 510,
+        "y": 1160,
+        "wires": [
+            [
+                "bc0d3150.0789b"
+            ]
+        ]
+    },
+    {
+        "id": "bc0d3150.0789b",
+        "type": "function",
+        "z": "e8a3a4c4.38b508",
+        "name": "Prep Response",
+        "func": "\nvar d = new Date().toLocaleString('en-GB', { timeZone: 'Asia/Colombo' })\nvar [date,time]=(d.split(\", \"))\nvar [day,month,year]= date.split(\"/\")\nvar [hour,min,second]=time.split(\":\")\nmin=((Math.floor(parseInt(min)/5))*5).toString()\nif (min.length < 2) min = '0'+min;\ndate= [year,month,day].join(\"-\")\ntime=[hour,min].join(\":\")\nvar data=msg.payload[date][time]\nvar azimuth=data.azimuth\nvar altitude=data.altitude\nvar sleep=flow.get(\"Interval\")\nif (parseInt(hour)>=18) sleep= 24+5- parseInt(hour); //optimized to wakeup at 6 a.m. if last publish message at 6:59pm\nmsg.payload={\n    \"Azimuth\":azimuth,\n    \"Altitude\":altitude,\n    \"Sleep_time\":sleep\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 1160,
+        "wires": [
+            [
+                "619b54ec.1b2b1c"
+            ]
+        ]
+    },
+    {
+        "id": "619b54ec.1b2b1c",
+        "type": "mqtt out",
+        "z": "e8a3a4c4.38b508",
+        "name": "Server",
+        "topic": "IOT/GRP15/Smart_Solar_Panel_Server",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "4cb42008.4d74f",
+        "x": 890,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "eaf59ad9.f03098",
+        "type": "comment",
+        "z": "e8a3a4c4.38b508",
+        "name": "Open Weather Map Current Weather",
+        "info": "",
+        "x": 200,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "c166fc97.9b3af",
+        "type": "comment",
+        "z": "e8a3a4c4.38b508",
+        "name": "Open Weather Map Weather Forecast",
+        "info": "",
+        "x": 210,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "fd0ad555.ce80c8",
+        "type": "comment",
+        "z": "e8a3a4c4.38b508",
+        "name": "IPGeoLocation Sun Position",
+        "info": "",
+        "x": 180,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "faae4fec.b5d21",
+        "type": "comment",
+        "z": "e8a3a4c4.38b508",
+        "name": "Error Handling",
+        "info": "",
+        "x": 130,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "84c97262.2498d",
+        "type": "comment",
+        "z": "e8a3a4c4.38b508",
+        "name": "Finally front-end template of Dashboard",
+        "info": "",
+        "x": 210,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "a3078b8b.ff7528",
+        "type": "link out",
+        "z": "e8a3a4c4.38b508",
+        "name": "Send Trigger",
+        "links": [
+            "59d33cd0.0d3fd4"
+        ],
+        "x": 555,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "59d33cd0.0d3fd4",
+        "type": "link in",
+        "z": "e8a3a4c4.38b508",
+        "name": "Recieve Trigger",
+        "links": [
+            "a3078b8b.ff7528"
+        ],
+        "x": 75,
+        "y": 1000,
+        "wires": [
+            [
+                "c307e7e1.b5e508"
+            ]
+        ]
+    },
+    {
+        "id": "3e740eb4.ef6222",
+        "type": "link out",
+        "z": "e8a3a4c4.38b508",
+        "name": "Send Sun Position",
+        "links": [
+            "f913fcc5.46462"
+        ],
+        "x": 795,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "f913fcc5.46462",
+        "type": "link in",
+        "z": "e8a3a4c4.38b508",
+        "name": "Recieve Sun Position",
+        "links": [
+            "3e740eb4.ef6222"
+        ],
+        "x": 75,
+        "y": 1060,
+        "wires": [
+            [
+                "a36c12c8.e6f3c"
+            ]
+        ]
+    },
+    {
+        "id": "b1159538.15e6f8",
+        "type": "comment",
+        "z": "e8a3a4c4.38b508",
+        "name": "Send Sun Position and sleep interval to Subsciber once published message recieved",
+        "info": "",
+        "x": 350,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "93eb699.08d1298",
+        "type": "debug",
+        "z": "e8a3a4c4.38b508",
+        "name": "Device is not ready",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "4cb42008.4d74f",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "https://test.mosquitto.org/",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]
